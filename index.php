@@ -16,7 +16,7 @@ include("conexion.php");
 
 
 
-$consultaTest="select tb.cod_test_base,tb.nombre_test_base from test_asignado_estudiante tae join test_asignado ta on (tae.cod_test_asignado=ta.cod_test_asignado) join test_base tb on (tb.cod_test_base=ta.cod_test_base) where ISNULL (tae.cod_estilo) and tae.username='$usuario1' ";
+$consultaTest="select tb.cod_test_base,tb.nombre_test_base,ta.cod_test_asignado from test_asignado_estudiante tae join test_asignado ta on (tae.cod_test_asignado=ta.cod_test_asignado) join test_base tb on (tb.cod_test_base=ta.cod_test_base) where ISNULL (tae.cod_estilo) and tae.username='$usuario1' and tae.realizado='0' ";
 
 
 
@@ -102,16 +102,20 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
                 <?php  
 
                 $cont=0;
+                $contExamens=0;
                while($result_consulta_test = mysqli_fetch_array($resul_consulta_Test,MYSQLI_ASSOC)){
 
                           $id_test=$result_consulta_test['cod_test_base'];
                           $Nombre_test=$result_consulta_test['nombre_test_base'];
+                          $Test_Asig=$result_consulta_test['cod_test_asignado'];
+
+                          $contExamens=$contExamens+1;
                            
 
            ?>
               
 
-                  <div><a href="examenes.php?test=<?php echo $id_test; ?>"><?php echo $Nombre_test; ?></a></div>
+                  <div><a href="examenes.php?test=<?php echo $id_test; ?>&testasig=<?php echo $Test_Asig;?>"><?php echo $Nombre_test; ?></a></div>
                  
              
 
@@ -120,6 +124,10 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
 
                 <?php  
                  }
+
+                 if($contExamens==0){ ?>
+                   <div>Usted no posee examanes perndientes por realizar</div>
+                <?php }
                 ?>
                 
              

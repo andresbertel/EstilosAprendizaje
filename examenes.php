@@ -15,6 +15,7 @@ $contrasena = $_SESSION['contrasena'];
 include("conexion.php");
 
 $test=$_GET["test"];
+$testasig=$_GET["testasig"];
 
 
 
@@ -99,6 +100,12 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
         <div class="card-header">
           <i class="fa fa-table"></i> TEST</div>
         <div class="card-body">
+
+
+<form action="guardarExamen.php" method="post">
+
+  <input type="hidden" name="testasig" value="<?php echo $testasig; ?>">
+
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
@@ -152,12 +159,13 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
 
                           $descipcion_opcion_respuesta=$result_consulta_OpcionRes['descripcion_opcion_respuesta'];
                           $cod_estilo=$result_consulta_OpcionRes['cod_estilo'];
+                          $cod_op_res=$result_consulta_OpcionRes['cod_opcion_respuesta'];
 
                         //  echo "<li>".$descipcion_opcion_respuesta."</li>";
 
                           echo "<input type='hidden' value='$cod_pregunta' name='pre$cont'>";
 
-                         echo " <div class='radio'> <label><input type='radio' name='optradio$cont' value='$descipcion_opcion_respuesta'> $descipcion_opcion_respuesta</label> </div>";
+                         echo " <div class='radio'> <label><input type='radio' name='optradio$cont' value='$cod_op_res'> $descipcion_opcion_respuesta</label> </div>";
 
                          
 
@@ -182,6 +190,12 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
               </tbody>
             </table>
           </div>
+
+          <input type="submit" name="enviar">
+
+    </form>
+       
+
         </div>
         <div class="card-footer small text-muted">CORPORACIÓN UNIRSITARIA DEL CARIBE - CECAR</div>
       </div>
