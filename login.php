@@ -20,7 +20,7 @@ $encriptar1 = password_hash($password, PASSWORD_BCRYPT, ["cost" => '11']);
    
 
    $consultalogi="select username from estudiantes where username='$usuario'";
-   echo $consultalogi;
+   //echo $consultalogi;
   $sql=mysqli_query($conexion,$consultalogi);
   
 
@@ -60,7 +60,7 @@ $encriptar1 = password_hash($password, PASSWORD_BCRYPT, ["cost" => '11']);
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SB Admin - Start Bootstrap Template</title>
+  <title>Estilos de Aprendizaje</title>
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->

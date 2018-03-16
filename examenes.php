@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -28,6 +29,20 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
 
 
 ?>
+
+<style type="text/css">
+  
+body
+{
+  font-family: Arial, Sans-serif;
+}
+.error
+{
+color:red;
+font-family:verdana, Helvetica;
+}
+
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +117,7 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
         <div class="card-body">
 
 
-<form action="guardarExamen.php" method="post">
+<form action="guardarExamen.php" method="post" id="formulario">
 
   <input type="hidden" name="testasig" value="<?php echo $testasig; ?>">
 
@@ -153,7 +168,8 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
                   <?php 
                   echo "<ul>";
 
-                  
+                 echo"<p class='container'>";
+                  echo "</p>";
 
                   while($result_consulta_OpcionRes = mysqli_fetch_array( $resul_OpcionRes,MYSQLI_ASSOC)){
 
@@ -163,14 +179,16 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
 
                         //  echo "<li>".$descipcion_opcion_respuesta."</li>";
 
-                          echo "<input type='hidden' value='$cod_pregunta' name='pre$cont'>";
+                          echo "<input type='hidden' value='$cod_pregunta' name='pre$cont' />";
 
-                         echo " <div class='radio'> <label><input type='radio' name='optradio$cont' value='$cod_op_res'> $descipcion_opcion_respuesta</label> </div>";
+                         echo " <div class='radio'> <label><input type='radio' class='required' minlength='1' name='optradio$cont' value='$cod_op_res' > $descipcion_opcion_respuesta</label> </div>";
 
                          
 
                         }
                         $cont=$cont+1;
+
+                       
 
                         echo "</ul>"
 
@@ -234,6 +252,12 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+
+
+
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
@@ -244,8 +268,42 @@ $resul_consulta_Test=mysqli_query($conexion,$consultaTest);
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="js/sb-admin-charts.min.js"></script>
+    
   </div>
 </body>
+
+<script type="text/javascript">
+
+$(function()
+  {
+    $('#formulario').validate(
+      {
+        rules:
+        {
+          Color:{ required:true }
+        },
+        messages:
+        {
+          Color:
+          {
+            required:"Please select a Color<br/>"
+          }
+        },
+        errorPlacement: function(error, element) 
+        {
+            if ( element.is(":radio") ) 
+            {
+                error.appendTo( element.parents('.radio') );
+            }
+            else 
+            { // This is the default behavior 
+                error.insertAfter( element );
+            }
+         }
+      });
+    
+  });
+
+</script>
 
 </html>
