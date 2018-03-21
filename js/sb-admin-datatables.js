@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#dataTable').DataTable( {
-        "paging":   false,
-        "ordering": false,
+        "paging":   true,
+        "ordering": true,
         "info":     false
     } );
 } );
