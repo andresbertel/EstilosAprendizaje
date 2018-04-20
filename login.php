@@ -41,15 +41,30 @@ $encriptar1 = password_hash($password, PASSWORD_BCRYPT, ["cost" => '11']);
     $_SESSION['logged'] = "Logged";
     $_SESSION['usuario'] = $usuarioDB;
     $_SESSION['password'] = $passwordDB;
+     
 
+      
   
     header("Location:index.php");
-  } elseif ($usuario !== isset($usuarioDB)) {
+
+
+  }elseif($usuario=="admin" && $password=="Cecarvirtual2"){
+             $_SESSION['logged'] = "Logged";
+            $_SESSION['loggedAdmin'] = "loggedAdmin";
+
+            header("Location:administrador.php");
+       }
+
+
+
+  elseif ($usuario !== isset($usuarioDB)) {
     echo "<div class='error'><span>El Nombre de Usuario que has Introducido es Incorrecto</span></div>";
   } elseif (password_verify($password, $passwordDB) === FALSE) {
     echo "<div class='error'><span>La Contraseña que has Introducido es Incorrecta</span></div>";
   }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -12,6 +12,11 @@
 	$basededatos = "piescomc_cuadro";*/
 
 
+	/*$usuario = "piescomc_estiloo";
+	$password = "Cec@rvirtual1";
+	$servidor = "localhost";
+	$basededatos = "piescomc_estilosdeaprendizaje";*/
+
 	$usuario = "root";
 	$password = "";
 	$servidor = "localhost";
