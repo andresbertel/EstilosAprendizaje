@@ -179,12 +179,18 @@ join estudiantes e on(e.username=tae.username)  where tae.realizado='1'";
                                          }
 
 
-                                         $consulta_honey="select username,es.nombre_estilo,ROUND((COUNT(*)*100 )/(select count(*) totalPreguntas from respuesta_test where username=$documento and cod_test_asignado='101'),2)TOTAL from respuesta_test rt join opciones_respuesta ore 
+                                         /*$consulta_honey="select username,es.nombre_estilo,ROUND((COUNT(*)*100 )/(select count(*) totalPreguntas from respuesta_test where username=$documento and cod_test_asignado='101'),2)TOTAL from respuesta_test rt join opciones_respuesta ore 
                                           on(rt.cod_opcion_respuesta=ore.cod_opcion_respuesta)
                                           join estilos es on(es.cod_estilo=ore.cod_estilo)   where cod_test_asignado='101' and username=$documento
 
                                           group by es.cod_estilo
-                                          ";
+                                          ";*/
+
+                                         $consulta_honey= "select username,es.nombre_estilo,ROUND((COUNT(*)*100 )/(select count(*) totalPreguntas from respuesta_test re1 where re1.username=$documento and re1.cod_test_asignado='101'and re1.cod_opcion_respuesta in(select cod_opcion_respuesta  from opciones_respuesta WHERE cod_estilo<>'9')),2)TOTAL from respuesta_test rt join opciones_respuesta ore 
+                                          on(rt.cod_opcion_respuesta=ore.cod_opcion_respuesta)
+                                          join estilos es on(es.cod_estilo=ore.cod_estilo)   where cod_test_asignado='101' and username=$documento and ore.cod_estilo<>'9'
+
+                                          group by es.cod_estilo order by TOTAL desc";
 
                                        $resul_honey=mysqli_query($conexion, $consulta_honey);
 
@@ -580,10 +586,10 @@ $resul_Esta_honey=mysqli_query($conexion, $estadisticas_honey);
      var myPieChart = new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ["PRAGMÁTICO", "TEÓRICO", "ACTIVO", "REFLEXIVO","NINGUNO"],
+            labels: ["PRAGMÁTICO", "TEÓRICO", "ACTIVO", "REFLEXIVO"],
             datasets: [{
               data: valoresGrafica,
-              backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#6f42c1'],
+              backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
     }],
   },
   options: pieOptions
